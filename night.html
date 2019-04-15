@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+<title>Bug in the code</title>
+</head>
+  <body class="container">
+    <header>
+      <h1>Bug in the Code</h1>
+    </header>
+
+  <div class="night" id="night-intro">
+    <h4>Night has come, all players close their eyes and go to sleep. The game master receives the device, views their role, and gives the device to the next player once finished.</h4>
+
+    <button type="button" name="beginNight">Begin</button>
+
+  </div>
+
+<!--Generic div created be JS -->
+  <div class="night" id="night-begin-roles">
+    <div id="night-playerIntros">
+      intro screen where you hand device to player shown.
+      <img src="#" alt="player image" id="night-player-image">
+      image is clickable (to hidden continue button)
+      <button type="button" name="continue">Continue</button>
+    </div>
+
+    <div id="night-playerObject.id">
+      <img src="#" alt="player image" id="night-player-image">
+      this is where we tell each player what their actions are for the night. generated based on how many players are active. stuff is clickable. (to hidden continue button)
+      <button type="button" name="continue">Continue</button>
+    </div>
+
+    <div class="day" id="night-end-roles">
+      <h4>Morning has come, the office awakes. Hand the device to the game master.</h4>
+      <button type="button" name="beginDay">Ready</button>
+    </div>
+  </div>
+
+  </body>
+</html>
