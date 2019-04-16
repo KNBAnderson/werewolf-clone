@@ -1,7 +1,13 @@
 var newGame = new StartGame(4);
+var player1 = new Player("q")
+var player2 = new Player("w")
+var player3 = new Player("e")
+var player4 = new Player("r")
+
 
 function StartGame(numberOfPlayers) {
   this.players = [],
+  this.deadPlayers = [],
   this.roleIds = [],
   this.numberOfPlayers = numberOfPlayers
 }
@@ -39,6 +45,50 @@ Player.prototype.assignRole = function() {
 }
 //Above starts game and assigns initial properties to players
 
+//Function for the Bug to vote
+function bugVote(playerId){
+  for (i = 0; i < newGame.players.length; i++){
+    if (newGame.players[i].playerId === playerId){
+      newGame.players[i].playerStatus = !newGame.players[i].playerStatus;
+      var latestVictim = newGame.players.slice(i,i+1);
+      newGame.deadPlayers.unshift(latestVictim);
+      newGame.players.splice(i,1);
+    }
+  }
+  //this may need a line to update game???
+}
+//Player vote function
+function voteCollect(playerId) {
+  for (i = 0; i < newGame.players.length; i++) {
+    if (newGame.players[i].playerId === playerId){
+      newGame.players[i].voteCount += 1;
+    }
+  }
+}
+
+function voteCount(){
+  if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
+    newGame.players[0].playerStatus = !newGame.players[0].playerStatus;
+    var latestVictim = newGame.players.slice(0,1);
+    newGame.deadPlayers.unshift(latestVictim);
+    newGame.players.splice(0,1);
+  } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
+    newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
+    var latestVictim = newGame.players.slice(1,2);
+    newGame.deadPlayers.unshift(latestVictim);
+    newGame.players.splice(1,1);
+  } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
+    newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
+    var latestVictim = newGame.players.slice(2,3);
+    newGame.deadPlayers.unshift(latestVictim);
+    newGame.players.splice(2,1);
+  } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
+    newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
+    var latestVictim = newGame.players.slice(3,4);
+    newGame.deadPlayers.unshift(latestVictim);
+    newGame.players.splice(3,1);
+  }
+}
 
 //Countdown functions
 function startTimer(duration, display) {
@@ -61,6 +111,7 @@ function startTimer(duration, display) {
 }
 
 $(function(){
+  newGame.randomRoles(4);
   var location = 0
   var retrievedNewGame = localStorage.getItem('newGame');
   $('form').submit(function(e) {
