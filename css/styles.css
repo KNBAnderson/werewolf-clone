@@ -1,7 +1,11 @@
-#continue-night {
+.hide {
   display: none;
 }
 
-.hide {
-  display: none;
+.player-img {
+  width: 250px;
+}
+
+i {
+  font-size: 150px;
 }

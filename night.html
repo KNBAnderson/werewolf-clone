@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,27 +15,24 @@
 
   <div class="night" id="night-intro">
     <h4>Night has come, all developers have left the office after a long day of coding. <span class="player-name">Player</span> receives the device, views their role, and gives the device to the next player once finished.</h4>
-
     <button type="button" name="begin-night" id="begin-night" class="next-role">Begin</button>
-
   </div>
 
-<!--Generic div created be JS -->
   <div class="night" id="night-begin-roles">
     <div id="night-player-intros" class="hide">
-      <span class="img"></span>
+      <span class="img" id="night-player-img"></span>
       <p>Hand the device to this player. Click on the avatar above once you are ready.</p>
       <button type="button" name="continue" id="continue-night" class="hide continue-role">Start Turn</button>
     </div>
 
     <div id="developer" class="hide role">
-    img of computer with icon
+    <i class="fas fa-laptop-code"></i>
     <p>Developers sleep soundly</p>
     <button type="button" name="continue" class="next-role" id="developer-end-turn">Okay</button>
     </div>
 
     <div id="bug" class="hide role">
-      bug img
+    <i class="fas fa-bug"></i>
     <p>Select a player's code to infect.</p>
     <button type="button" name="continue" class="next-role" id="bug-end-turn">Infect Code</button>
     </div>
