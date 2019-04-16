@@ -63,6 +63,8 @@ function startTimer(duration, display) {
 $(function(){
   var location = 0
   var retrievedNewGame = localStorage.getItem('newGame');
+  var newGame1 = JSON.parse(retrievedNewGame);
+  var playerTurn = [1, 2, 3, 4];
   $('form').submit(function(e) {
    e.preventDefault();
    newGame.randomRoles(4);
@@ -79,35 +81,41 @@ $(function(){
   // $('.img').html('<img src="img/player' + i + '.png" alt="an avatar for player '+ i + '">')
 
   $('button.next-role').on('click',function(){
-    console.log(JSON.parse(retrievedNewGame));
-    console.log('you got here');
+    if (!newGame1.players[location].roleId) {
+      // location = 0;
+      $('#night-player-intros').hide();
+      $('#night-end-roles').show();
+      console.log('you got here');
+    } else {
     $('#night-intro').hide();
+    $('.role').hide();
+    $('button#continue-night').hide();
     $('#night-begin-roles #night-player-intros').show();
     //This playerTurn array should actually be newGame.roleIds
-    // $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img">');
-
+    $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
+  }
   });
 
-  $('#night-begin-roles').on('click', function(){
+  $('#night-player-img').on('click', function(){
     $('button#continue-night').show();
   });
 
-  // $('button.continue-role').on('click', function() {
-  //   //in real life playerTurn here should be newGame.player v
-  //   if (playerTurn[location].role === 'Dev') {
-  //     $('#night-begin-roles').hide();
-  //     $('#developer').show();
-  //     location++;
-  //   } else if (playerTurn[location].role === 'Bug') {
-  //     $('#night-begin-roles').hide();
-  //     $('#bug').show();
-  //     location++;
-  //   } else if (!playerTurn[location].role) {
-  //     location = 0;
-  //     $('#night-player-intros').hide();
-  //     $('#night-end-roles').show();
-  //   }
-  // })
+  $('button.continue-role').on('click', function() {
+    console.log(newGame1);
+    //in real life playerTurn here should be newGame.player v
+
+    if (newGame1.players[location].roleId === 'Dev') {
+      console.log('dev');
+      $('#night-player-intros').hide();
+      $('#developer').show();
+      location++;
+    } else if (newGame1.players[location].roleId === 'Bug') {
+      console.log('bug');
+      $('#night-player-intros').hide();
+      $('#bug').show();
+      location++;
+    }
+  })
 
   $('button#begin-day').on('click', function() {
     window.location.href = "../werewolf-clone/day.html"

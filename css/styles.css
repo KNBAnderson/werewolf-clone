@@ -5,3 +5,7 @@
 .hide {
   display: none;
 }
+
+.player-img {
+  width: 250px;
+}
