@@ -1,51 +1,41 @@
 
-var newGame = new Game();
-
-var player1 = new Player("one");
-var player2 = new Player("two");
-var player3 = new Player("three");
-var player4 = new Player("four");
-
-function Game() {
+function StartGame(numberOfPlayers) {
   this.players = [],
-  this.roleIds = [],
-  this.currentId = -1
+  this.roleIds = randomRoles(numberOfPlayers),
+  this.numberOfPlayers = numberOfPlayers
 }
 
-function Player(name,roleId) {
+StartGame.prototype.randomRoles = function(numberOfPlayers) {
+  for (var i = 1; i <= numberOfPlayers; i++) {
+    var randomRole = Math.floor(Math.random()* Math.floor(numberOfPlayers));
+    if (this.roleIds.includes(randomRole)) {
+      i --
+    }else{this.roleIds.push(randomRole)
+    }
+  }
+}
+
+function Player(name) {
   this.name = name,
-  this.roleId = roleId,
+  this.playerId = 0,
+  this.roleId = "",
+  this.voteCount = 0,
   this.playerStatus = true
 }
 
-Game.prototype.addPlayer = function(player){
-    player.id = this.assignId();
-    this.players.push(player);
+Player.prototype.addPlayer = function () {
+  this.playerId += newGame.players.length;
+  newGame.players.push(this);
+  this.assignRole();
 }
 
-Game.prototype.assignId = function() {
-  this.currentId += 1;
-  return this.currentId;
-}
-
-Game.prototype.assignRole = function() {
-  for (var i = 0; i <= newGame.currentId; i++) {
-    if (newGame.players[i].id === newGame.roleIds[0]) {
-      newGame.players[i].roleId = "Bug";
-    }else {newGame.players[i].roleId = "Dev"};
+Player.prototype.assignRole = function() {
+  for (var i = 0; i <= this.playerId; i++) {
+    if (this.playerId === newGame.roleIds[0]) {
+      this.roleId = "Bug";
+    }else {this.roleId = "Dev"};
   }
 }
-
-Game.prototype.randomRoles = function(playerNumber) {
-  for (var i = 1; i <= playerNumber; i++) {
-    var randomRole = Math.floor(Math.random()* Math.floor(playerNumber));
-    if (newGame.roleIds.includes(randomRole)) {
-      i --
-    }else{this.roleIds.push(randomRole)}
-  }
-}
-
-newGame.randomRoles(4);
 //Above starts game and assigns initial properties to players
 
 
@@ -69,16 +59,9 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-window.onload = function () {
-    var twoMinute = 100000 * 2,
-        display = document.querySelector('#time');
-    startTimer(twoMinute, display);
-};
-
 $(function(){
-var playerTurn = [1, 2, 3, 4]
 var location = 0
-  // var newGame = new Game();
+  // var newGame = new StartGame(#ofplayers);
   $('form').submit(function(e) {
    e.preventDefault();
    for (let i = 1; i <= 4; i++) {
@@ -126,6 +109,13 @@ var location = 0
   $('button#begin-day').on('click', function() {
     window.location.href = "../werewolf-clone/day.html"
   })
+  
+  $("#discussion").on("click", function() {
+
+    var twoMinute = 60* 2,
+        display = document.querySelector('#time');
+    startTimer(twoMinute, display);
+
+  })
 
 });
-
