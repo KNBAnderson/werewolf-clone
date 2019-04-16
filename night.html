@@ -16,7 +16,7 @@
   <div class="night" id="night-intro">
     <h4>Night has come, all developers have left the office after a long day of coding. <span class="player-name">Player</span> receives the device, views their role, and gives the device to the next player once finished.</h4>
 
-    <button type="button" name="begin-night" id="begin-night">Begin</button>
+    <button type="button" name="begin-night" id="begin-night" class="next-role">Begin</button>
 
   </div>
 
@@ -25,29 +25,30 @@
     <div id="night-player-intros" class="hide">
       <span class="img"></span>
       <p>Hand the device to this player. Click on the avatar above once you are ready.</p>
-      <button type="button" name="continue" id="continue-night" class="hide">Start Turn</button>
+      <button type="button" name="continue" id="continue-night" class="hide continue-role">Start Turn</button>
     </div>
 
-    <div id="developer" class="hide">
+    <div id="developer" class="hide role">
     img of computer with icon
-    <button type="button" name="continue" id="developer-end-turn" class="hide">Okay</button>
+    <p>Developers sleep soundly</p>
+    <button type="button" name="continue" class="next-role" id="developer-end-turn">Okay</button>
     </div>
 
-    <div id="bug" class="hide">
+    <div id="bug" class="hide role">
       bug img
     <p>Select a player's code to infect.</p>
-    <button type="button" name="continue" id="bug-end-turn" class="hide">Infect Code</button>
+    <button type="button" name="continue" class="next-role" id="bug-end-turn">Infect Code</button>
     </div>
 
-    <div id="night-playerObject.id" class="hide">
+    <!-- <div id="night-playerObject.id" class="hide">
       <img src="#" alt="player image" id="night-player-image">
       this is where we tell each player what their actions are for the night. generated based on how many players are active. stuff is clickable. (to hidden continue button)
       <button type="button" name="continue" id="continue" class="hide">Continue</button>
-    </div>
+    </div> -->
 
-    <div class="day" id="night-end-roles" class="hide">
-      <h4 class="hide">Morning has come, the office awakes. Hand the device to the game master.</h4>
-      <button type="button" name="begin-day" id="begin-day" class="hide">Ready</button>
+    <div class="day hide" id="night-end-roles">
+      <h4>Morning has come, the office awakes. Hand the device to the game master.</h4>
+      <button type="button" name="begin-day" id="begin-day">Ready</button>
     </div>
   </div>
 

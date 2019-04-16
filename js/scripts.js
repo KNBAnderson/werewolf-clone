@@ -1,5 +1,6 @@
 $(function(){
-
+var playerTurn = [1, 2, 3, 4]
+var location = 0
   // var newGame = new Game();
   $('form').submit(function(e) {
    e.preventDefault();
@@ -8,39 +9,45 @@ $(function(){
      // var player = new Player(name);
      // newGame.addPlayer();
    }
-   // newGame.assignRole();
-   // window.location.href = "../werewolf-clone/night.html"
+   // newGame.assignRole(4);
+
+   window.location.href = "../werewolf-clone/night.html"
   });
 
   // $('.img').html('<img src="img/player' + i + '.png" alt="an avatar for player '+ i + '">')
 
-  $('button#begin-night').on('click',function(){
+  $('button.next-role').on('click',function(){
+    console.log('you got here');
     $('#night-intro').hide();
-    $('#night-begin-roles, #night-player-intros').show();
+    $('#night-begin-roles #night-player-intros').show();
+    //This playerTurn array should actually be newGame.roleIds
+    $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img">');
 
-      $('span.img').html('<img src="img/player1.png" alt="an avatar for player" id="player-1-img">')
-      $('img#player-1-img').on('click', function(){
-        $('button#continue-night').show();
-      });
-      $('button#continue-night').on('click', function() {
-        console.log('you got here');
-      })
+  });
 
+  $('#night-begin-roles').on('click', function(){
+    $('button#continue-night').show();
+  });
+
+  $('button.continue-role').on('click', function() {
+    //in real life playerTurn here should be newGame.player v
+    if (playerTurn[location].role === 'Dev') {
+      $('#night-begin-roles').hide();
+      $('#developer').show();
+      location++;
+    } else if (playerTurn[location].role === 'Bug') {
+      $('#night-begin-roles').hide();
+      $('#bug').show();
+      location++;
+    } else if (!playerTurn[location].role) {
+      location = 0;
+      $('#night-player-intros').hide();
+      $('#night-end-roles').show();
+    }
   })
-var location = 0;
-function playerTurn(player){
-  location++;
-  var role = player.role;
-  if (role === 'Bug') {
-    bugTurn();
-  }  else if (role === 'Dev') {
-    devTurn();
-  }
-  // click on start turn ->
 
-}
-playerTurn(newGame.players[location]);
-
-
+  $('button#begin-day').on('click', function() {
+    window.location.href = "../werewolf-clone/day.html"
+  })
 
 });
