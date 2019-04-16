@@ -201,12 +201,13 @@ $(function(){
         $('.candidates').append('<img src="img/player' + i + '.png" alt="an avatar for player' + i + '" class="img-sm" id="candidate' + i + '">');
       }
     }
+    $('img.img-sm').on('click', function() {
+      var candidate = $()
+    
+    });
 
   })
 
-  $('img.img-sm').on('click', function() {
-    console.log('test2');
-  });
 
 
 
