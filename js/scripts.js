@@ -54,8 +54,8 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             timer = duration;
-            alert("Count Down Done!!");
-            votePhase();
+            $('#day-intro').hide();
+            $('#day-begin-roles').show();
         }
     }, 1000);
 }
@@ -81,19 +81,20 @@ $(function(){
   // $('.img').html('<img src="img/player' + i + '.png" alt="an avatar for player '+ i + '">')
 
   $('button.next-role').on('click',function(){
-    if (!newGame1.players[location].roleId) {
-      // location = 0;
-      $('#night-player-intros').hide();
+    if(newGame1.players[location]) {
+      $('#night-intro').hide();
+      $('.role').hide();
+      $('button#continue-night').hide();
+      $('#night-begin-roles #night-player-intros').show();
+      //This playerTurn array should actually be newGame.roleIds
+      $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
+      $('span.img').append('<p>' + newGame1.players[location].name + '</p>');
+    }
+    else {
+      location = 0;
       $('#night-end-roles').show();
-      console.log('you got here');
-    } else {
-    $('#night-intro').hide();
-    $('.role').hide();
-    $('button#continue-night').hide();
-    $('#night-begin-roles #night-player-intros').show();
-    //This playerTurn array should actually be newGame.roleIds
-    $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
-  }
+      $('.role').hide();
+    }
   });
 
   $('#night-player-img').on('click', function(){
@@ -118,15 +119,29 @@ $(function(){
   })
 
   $('button#begin-day').on('click', function() {
+    // $('#victim').text(bugVote()[0]);
+    console.log('test');
+    // $('span.night-victim-img').append('<img src=' + (WHATEVER[1] + 1) + 'alt="victim image" id="victim-img">');
     window.location.href = "../werewolf-clone/day.html"
   })
 
-  $("#discussion").on("click", function() {
-
-    var twoMinute = 60* 2,
-        display = document.querySelector('#time');
-    startTimer(twoMinute, display);
-
+  $('button#victim-accept').on('click', function() {
+    $('#begin-discussion').show();
+    $('#time').show();
+    $('#bug-victim').hide();
+    console.log('test');
   })
 
+
+  $("#discussion").on("click", function() {
+
+    var twoMinute = 1* 2,
+        display = document.querySelector('#time');
+    startTimer(twoMinute, display);
+  })
+
+  // $('button#begin-vote').on('click', function() {
+  //   $('#day-player-img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
+  //   $('span.img').append('<p>' + newGame1.players[location].name + '</p>');
+  // })
 });
