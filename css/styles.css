@@ -13,3 +13,19 @@
 i {
   font-size: 150px;
 }
+
+.day {
+  background-color: orange;
+}
+
+.night {
+  background-color: lightblue;
+}
+
+body {
+  background-image: url('../img/day_sm.png');
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

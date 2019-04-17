@@ -129,8 +129,10 @@ $(function(){
       player.addPlayer();
     }
     localStorage.setItem('newGame', JSON.stringify(newGame));
-    window.location.href = "../werewolf-clone/night.html"
+    $('form').hide();
+    $('#night-intro').show();
   });
+
 
 
   // $('.img').html('<img src="img/player' + i + '.png" alt="an avatar for player '+ i + '">')
@@ -177,7 +179,8 @@ $(function(){
     // $('#victim').text(bugVote()[0]);
     console.log('test');
     // $('span.night-victim-img').append('<img src=' + (WHATEVER[1] + 1) + 'alt="victim image" id="victim-img">');
-    window.location.href = "../werewolf-clone/day.html"
+    $('#night-end-roles').hide();
+    $('#day-intro').show();
   })
 
   $('button#bug-victim-accept').on('click', function() {
@@ -229,7 +232,8 @@ $(function(){
   })
 
   $('#day-end-begin-night').on('click', function() {
-    window.location.href = "../werewolf-clone/night.html"
+    $('#day-end-roles').hide();
+    $('#night-intro').show();
   })
 
 

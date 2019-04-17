@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,6 +21,104 @@
       <button type="submit" name="names" id="start-game">Start the game</button>
       <!-- TAKE TO NIGHT INTRO -->
     </form>
+
+
+    <div class="night hide" id="night-intro">
+      <h4>Night has come, all developers have left the office after a long day of coding. <span class="player-name">Player</span> receives the device, views their role, and gives the device to the next player once finished.</h4>
+      <button type="button" name="begin-night" id="begin-night" class="next-role">Begin</button>
+    </div>
+
+    <div class="night" id="night-begin-roles">
+      <div id="night-player-intros" class="hide">
+        <span class="img" id="night-player-img"></span>
+        <p>Hand the device to this player. Click on the avatar above once you are ready.</p>
+        <button type="button" name="continue" id="continue-night" class="hide continue-role">Start Turn</button>
+      </div>
+
+      <div id="developer" class="hide role">
+      <i class="fas fa-laptop-code"></i>
+      <p>Developers sleep soundly</p>
+      <button type="button" name="continue" class="next-role" id="developer-end-turn">Okay</button>
+      </div>
+
+      <div id="bug" class="hide role">
+      <i class="fas fa-bug"></i>
+      <p>Select a player's code to infect.</p>
+      <button type="button" name="continue" class="next-role" id="bug-end-turn">Infect Code</button>
+      </div>
+
+      <!-- <div id="night-playerObject.id" class="hide">
+        <img src="#" alt="player image" id="night-player-image">
+        this is where we tell each player what their actions are for the night. generated based on how many players are active. stuff is clickable. (to hidden continue button)
+        <button type="button" name="continue" id="continue" class="hide">Continue</button>
+      </div> -->
+
+      <div class="day hide" id="night-end-roles">
+        <h4>Morning has come, the office awakes. Hand the device to the game master.</h4>
+        <button type="button" name="begin-day" id="begin-day">Ready</button>
+      </div>
+    </div>
+
+
+
+    <div class="day hide" id="day-intro">
+      <div id="bug-victim">
+      <span id="bug-victim-img"></span>
+      <h4><span id="victim">NAME</span> was fired for buggy code.</h4>
+      <h4>The former employee is not allowed to talk until the end of the game.</h4>
+      <button type="button" name="bug-victim-accept" id="bug-victim-accept">Done</button>
+      </div>
+
+      <div id="begin-discussion" class="hide">
+        All players now openly discuss yesterday's events and who might be the bug. Everybody should say their opinion. After the discussion, every player will vote on who they think the bug is. The person with the most votes will be fired.
+        <div id="time" class="hide">
+          <button id="discussion" type="button">Start Discussion</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!--Generic div created be JS -->
+    <div class="day hide" id="day-begin-roles">
+      <div class="day" id="day-voting">
+        <h4>The voting will begin.</h4>
+          <!-- **js appends img that are clickable with unique ids. add class to signify which person has been selected.** -->
+        <button type="button" name="begin-vote" id="begin-vote">Continue</button>
+      </div>
+
+      <div class="player-vote hide">
+        <h4>Vote for who you think corrupted the code.</h4>
+        <span class="img" id="day-player-img"></span>
+        <div class="candidates">
+        </div>
+
+      </div>
+
+      <div class="day hide" id="vote-result">
+
+        result divs are hidden in here
+        <div class="hide" id="vote-victim">
+          <span id="vote-victim-img"></span>
+          <h4>The office has voted, <span id="victim">NAME</span> was fired for buggy code. The remaining developers get back to work for the day</h4>
+          <h4>The former employee is not allowed to talk until the end of the game.</h4>
+          <button type="button" name="vote-victim-accept" id="vote-victim-accept">Done</button>
+        </div>
+
+        <div class="day hide" id='vote-draw'>
+          <h4>The office could not agree on who the bug was. No more developers will be fired today</h4>
+        </div>
+        <button type="button" name="day-end" id="day-end">Done</button>
+      </div>
+      <!-- SHOW DAY-VICTIM DIV -->
+      <!-- CUSTOMIZE BUTTON TO TAKE US TO SECOND NIGHT ROUND -->
+    </div>
+
+    <div class="night hide" id="day-end-roles">
+      <h4>The work day has ended. Developers go home for the night.</h4>
+      <button type="button" name="begin-night" id="day-end-begin-night">Ready</button>
+    </div>
+
+
 
     <div class="night" id="end-game">
       <!-- js populates either "Bugs have corrupted all the code" or "Devs have found bug" -->
