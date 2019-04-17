@@ -2,7 +2,6 @@ var newGame = new StartGame(4);
 
 function StartGame(numberOfPlayers) {
   this.players = [],
-  this.deadPlayers = [],
   this.roleIds = [],
   this.playerTurns = [],
   this.numberOfPlayers = numberOfPlayers
@@ -15,6 +14,26 @@ StartGame.prototype.randomRoles = function(numberOfPlayers) {
       i --
     } else{this.roleIds.push(randomRole)
     }
+  }
+}
+
+StartGame.prototype.gameOver = function() {
+    var bugCount = 0;
+    var devCount = 0;
+  for (let i = 0; i <= newGame.players.length - 1; i++) {
+    if (newGame.players[i].roleId === "Bug") {
+      bugCount += 1;
+    }else if (newGame.players[i].roleId === "Dev")
+      devCount +=1;
+  }
+  if (bugCount === 0) {
+     console.log('Devs won! Go back to work')
+     return true
+  } else if (bugCount >= devCount) {
+    console.log("Bugs won! Let's be fair, this company sucked anyway");
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -48,12 +67,9 @@ function bugPower(playerId){
     if (newGame.players[i].playerId === playerId){
       newGame.players[i].playerStatus = !newGame.players[i].playerStatus;
       var latestVictim = newGame.players.slice(i,i+1);
-      // newGame.deadPlayers.unshift(latestVictim);
-      // newGame.players.splice(i,1);
       newGame.playerTurns.splice(i,1);
     }
   }
-  //this may need a line to update game???
 }
 //Player vote function
 function voteCollect(playerId) {
@@ -66,39 +82,24 @@ function voteCollect(playerId) {
 }
 
 
-
-
-//We could pop this function into the UI easily if it also returned a string of either '#vote-draw' or '#vote-victim'. Then we could just run the function, and whatever value it returned would be in $(returnedValue).show(); and the right div would show
 function voteCount(){
   if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
     newGame.players[0].playerStatus = !newGame.players[0].playerStatus;
-    var latestVictim = newGame.players.slice(0,1);
-    // newGame.deadPlayers.unshift(latestVictim);
-    // newGame.players.splice(0,1);
     newGame.playerTurns.splice(0,1);
     resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
     newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
-    var latestVictim = newGame.players.slice(1,2);
-    // newGame.deadPlayers.unshift(latestVictim);
-    // newGame.players.splice(1,1);
     newGame.playerTurns.splice(1,1);
     resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
     newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
-    var latestVictim = newGame.players.slice(2,3);
-    // newGame.deadPlayers.unshift(latestVictim);
-    // newGame.players.splice(2,1);
     newGame.playerTurns.splice(2,1);
     resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
     newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
-    var latestVictim = newGame.players.slice(3,4);
-    // newGame.deadPlayers.unshift(latestVictim);
-    // newGame.players.splice(3,1);
     newGame.playerTurns.splice(3,1);
     resetVoteCount();
     return "#vote-victim";
@@ -129,51 +130,21 @@ function startTimer(seconds) {
       };
     }, 1000);
   };
-  // var timer = duration, minutes, seconds;
-  // setInterval(function () {
-  //   minutes = parseInt(timer / 60, 10)
-  //   seconds = parseInt(timer % 60, 10);
-  //
-  //   minutes = minutes < 10 ? "0" + minutes : minutes;
-  //   seconds = seconds < 10 ? "0" + seconds : seconds;
-  //
-  //   display.textContent = minutes + ":" + seconds;
-  //
-  //   if (--timer < 0) {
-  //     timer = duration;
-  //     $('#day-intro').hide();
-  //     $('#day-begin-roles').hide();
-  //     $('#day-begin-roles').show();
-  //     $('#day-voting').show();
-  //
-  //   }
-  // }, 1000);
-
-
 
 $(function(){
-  // newGame.randomRoles(4);
-  var location = 0
-  // var retrievedNewGame = localStorage.getItem('newGame');
-  // var newGame1 = JSON.parse(retrievedNewGame);
-  // var playerTurn = [1, 2, 3, 4];
+  var candidate;
+  var location = 0;
   $('form').submit(function(e) {
     e.preventDefault();
-    // debugger;
     newGame.randomRoles(4);
     for (let i = 1; i <= 4; i++) {
       var name = $('input#name' + i).val();
       var player = new Player(name);
       player.addPlayer();
     }
-    // localStorage.setItem('newGame', JSON.stringify(newGame));
     $('form').hide();
     $('#night-intro').show();
   });
-
-
-
-  // $('.img').html('<img src="img/player' + i + '.png" alt="an avatar for player '+ i + '">')
 
   $('button.next-role').on('click',function(){
     console.log(newGame.playerTurns[location]);
@@ -206,12 +177,10 @@ $(function(){
       for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
         if (tempArray[i] !== newGame.playerTurns[location]) {
           $('.bug-candidates').append('<div class="d-inline-block"><img src="img/player' + newGame.playerTurns[i] + '.png" alt="an avatar for player' + newGame.playerTurns[i] + '" class="img-sm-bug" id="bug-candidate' + newGame.playerTurns[i] + '" value="' + newGame.playerTurns[i] + '"><br><span>' + newGame.players[i].name + '</span></div>');
-          // $('.bug-candidates').append('<p>' + newGame.players[i].name + '</p>');
         }
       }
       $('img.img-sm-bug').on('click', function() {
-        var candidate = parseInt($(this).attr('value'));
-        bugPower(candidate);
+        candidate = parseInt($(this).attr('value'));
         $('.bug-candidates').hide();
 
       });
@@ -226,8 +195,7 @@ $(function(){
   })
 
   $('button#begin-day').on('click', function() {
-    // $('#victim').text(bugPower()[0]);
-    console.log('test');
+    bugPower(candidate);
     // $('span.night-victim-img').append('<img src=' + (WHATEVER[1] + 1) + 'alt="victim image" id="victim-img">');
     $('#night-end-roles').hide();
     $('#day-intro').show();
@@ -239,13 +207,8 @@ $(function(){
     $('#bug-victim').hide();
   })
 
-
-
   $("#discussion").on("click", function() {
-
-
-    var twoMinute = 120,
-
+    var twoMinute = 2,
     display = document.querySelector('#time');
     startTimer(twoMinute);
   })
@@ -255,7 +218,6 @@ $(function(){
     if(newGame.playerTurns[location] || newGame.playerTurns[location] === 0) {
       $('.player-vote').show();
       $('#day-player-img').html('<img src="img/player' + newGame.playerTurns[location] + '.png" alt="an avatar for player" id="player-' + newGame.playerTurns[location] + '-img" class="player-img">');
-      //playerTurn link to status=employed array
       let tempArray = newGame.playerTurns;
       for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
         if (tempArray[i] !== newGame.playerTurns[location]) {
@@ -278,36 +240,19 @@ $(function(){
     }
   })
 
-
-  //
-  // $('button.continue-role').on('click', function() {
-  //
-  //     let tempArray = newGame.playerTurns
-  //     for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
-  //       if (tempArray[i] !== newGame.playerTurns[location]) {
-  //         $('.bug-candidates').append('<img src="img/player' + newGame.playerTurns[i] + '.png" alt="an avatar for player' + newGame.playerTurns[i] + '" class="img-sm" id="candidate' + newGame.playerTurns[i] + '" value="' + newGame.playerTurns[i] + '">');
-  //
-  // })
-
-
-
-
   $('#day-end').on('click', function() {
     $('#vote-result').hide();
     $('#day-end-roles').show();
   })
 
   $('#day-end-begin-night').on('click', function() {
-    $('#day-end-roles').hide();
-    $('#night-intro').show();
+    if(!newGame.gameOver()) {
+      $('#day-end-roles').hide();
+      $('#night-intro').show();
+    } else if (newGame.gameOver()) {
+      $('#day-end-roles').hide();
+      $('#end-game').show();
+    }
   })
-
-
-
-
-
-
-
-  // location++
 
 });
