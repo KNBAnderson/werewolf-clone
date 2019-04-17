@@ -1,8 +1,8 @@
 var newGame = new StartGame(4);
-var player1 = new Player("q")
-var player2 = new Player("w")
-var player3 = new Player("e")
-var player4 = new Player("r")
+// var player1 = new Player("q")
+// var player2 = new Player("w")
+// var player3 = new Player("e")
+// var player4 = new Player("r")
 
 
 
@@ -47,11 +47,11 @@ Player.prototype.assignRole = function() {
 }
 //Above starts game and assigns initial properties to players
 
-newGame.randomRoles(4);
-player1.addPlayer();
-player2.addPlayer();
-player3.addPlayer();
-player4.addPlayer();
+// newGame.randomRoles(4);
+// player1.addPlayer();
+// player2.addPlayer();
+// player3.addPlayer();
+// player4.addPlayer();
 
 
 
@@ -142,8 +142,8 @@ function startTimer(duration, display) {
 $(function(){
   // newGame.randomRoles(4);
   var location = 0
-  var retrievedNewGame = localStorage.getItem('newGame');
-  var newGame1 = JSON.parse(retrievedNewGame);
+  // var retrievedNewGame = localStorage.getItem('newGame');
+  // var newGame1 = JSON.parse(retrievedNewGame);
   var playerTurn = [1, 2, 3, 4];
   $('form').submit(function(e) {
     e.preventDefault();
@@ -151,11 +151,10 @@ $(function(){
     newGame.randomRoles(4);
     for (let i = 1; i <= 4; i++) {
       var name = $('input#name' + i).val();
-      console.log(name);
       var player = new Player(name);
       player.addPlayer();
     }
-    localStorage.setItem('newGame', JSON.stringify(newGame));
+    // localStorage.setItem('newGame', JSON.stringify(newGame));
     $('form').hide();
     $('#night-intro').show();
   });
@@ -169,10 +168,10 @@ $(function(){
       $('#night-intro').hide();
       $('.role').hide();
       $('button#continue-night').hide();
+      $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
+      $('span.img').append('<p>' + newGame.players[location].name + '</p>');
       $('#night-begin-roles #night-player-intros').show();
       //This playerTurn array should actually be newGame.roleIds
-      $('span.img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
-      $('span.img').append('<p>' + newGame1.players[location].name + '</p>');
     }
     else {
       location = 0;
@@ -186,16 +185,14 @@ $(function(){
   });
 
   $('button.continue-role').on('click', function() {
-    console.log(newGame1);
+
     //in real life playerTurn here should be newGame.player v
 
-    if (newGame1.players[location].roleId === 'Dev') {
-      console.log('dev');
+    if (newGame.players[location].roleId === 'Dev') {
       $('#night-player-intros').hide();
       $('#developer').show();
       location++;
-    } else if (newGame1.players[location].roleId === 'Bug') {
-      console.log('bug');
+    } else if (newGame.players[location].roleId === 'Bug') {
       $('#night-player-intros').hide();
       $('#bug').show();
       location++;
