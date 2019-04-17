@@ -115,9 +115,9 @@ function resetVoteCount() {
 function startTimer(seconds) {
   var counter = seconds;
   var interval = setInterval(() => {
-    console.log(counter);
     counter--
-
+    $("#discussion").hide();
+    $("#time").html(counter);
     if (counter < 0) {
       $('#day-intro').hide();
         $('#day-begin-roles').hide();
