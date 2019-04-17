@@ -1,14 +1,16 @@
 var newGame = new StartGame(4);
-// var player1 = new Player("q")
-// var player2 = new Player("w")
-// var player3 = new Player("e")
-// var player4 = new Player("r")
+var player1 = new Player("q")
+var player2 = new Player("w")
+var player3 = new Player("e")
+var player4 = new Player("r")
+
 
 
 function StartGame(numberOfPlayers) {
   this.players = [],
   this.deadPlayers = [],
   this.roleIds = [],
+  this.voteCountRun = 0,
   this.numberOfPlayers = numberOfPlayers
 }
 
@@ -45,8 +47,16 @@ Player.prototype.assignRole = function() {
 }
 //Above starts game and assigns initial properties to players
 
+newGame.randomRoles(4);
+player1.addPlayer();
+player2.addPlayer();
+player3.addPlayer();
+player4.addPlayer();
+
+
+
 //Function for the Bug to vote
-function bugVote(playerId){
+function bugPower(playerId){
   for (i = 0; i < newGame.players.length; i++){
     if (newGame.players[i].playerId === playerId){
       newGame.players[i].playerStatus = !newGame.players[i].playerStatus;
@@ -64,7 +74,13 @@ function voteCollect(playerId) {
       newGame.players[i].voteCount += 1;
     }
   }
+  newGame.voteCountRun += 1;
+  if (newGame.players.length === newGame.voteCountRun) {
+    voteCount();
+  }
 }
+
+
 
 
 //We could pop this function into the UI easily if it also returned a string of either '#vote-draw' or '#vote-victim'. Then we could just run the function, and whatever value it returned would be in $(returnedValue).show(); and the right div would show
@@ -74,21 +90,32 @@ function voteCount(){
     var latestVictim = newGame.players.slice(0,1);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(0,1);
+    newGame.voteCountRun = 0;
+    return "#vote-victim";
   } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
     newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
     var latestVictim = newGame.players.slice(1,2);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(1,1);
+    newGame.voteCountRun = 0;
+    return "#vote-victim";
   } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
     newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
     var latestVictim = newGame.players.slice(2,3);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(2,1);
+    newGame.voteCountRun = 0;
+    return "#vote-victim";
   } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
     newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
     var latestVictim = newGame.players.slice(3,4);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(3,1);
+    newGame.voteCountRun = 0;
+    return "#vote-victim";
+  } else {
+    newGame.voteCountRun = 0;
+    return "#vote-draw";
   }
 }
 
@@ -176,7 +203,7 @@ $(function(){
   })
 
   $('button#begin-day').on('click', function() {
-    // $('#victim').text(bugVote()[0]);
+    // $('#victim').text(bugPower()[0]);
     console.log('test');
     // $('span.night-victim-img').append('<img src=' + (WHATEVER[1] + 1) + 'alt="victim image" id="victim-img">');
     $('#night-end-roles').hide();
