@@ -1,7 +1,15 @@
-#continue-night {
+.hide {
   display: none;
 }
 
-.hide {
-  display: none;
+.player-img {
+  width: 250px;
+}
+
+.img-sm {
+  width: 125px;
+}
+
+i {
+  font-size: 150px;
 }

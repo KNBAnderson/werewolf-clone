@@ -14,38 +14,60 @@
     </header>
 
   <div class="day" id="day-intro">
-    <div id="day-victim">
-    <img src="#" alt="victim image" id="">
-    <h4><span>NAME</span> was fired for buggy code.</h4>
+    <div id="bug-victim">
+    <span id="bug-victim-img"></span>
+    <h4><span id="victim">NAME</span> was fired for buggy code.</h4>
     <h4>The former employee is not allowed to talk until the end of the game.</h4>
-    <button type="button" name="beginDay">Done</button>
+    <button type="button" name="bug-victim-accept" id="bug-victim-accept">Done</button>
     </div>
 
-    <div id="day-begin-discussion">
-      All players now discuss openly last night's events and who might be a werewolf. Everybody should say their opinion. After the discussion every player will vote on who they think is a werewolf. The person with the most votes will be fired.
-      <button type="button" name="start-discussion">Start Discussion</button>
-    </div>
-
-    <div id="day-timer">
-      <img src="#" alt="timer image" id="day-timer-image">
-      this is where we have a 2 minute timer allowing players to discuss their thoughts.
-      <button type="button" name="finish-discussion">Finish Dicussion</button>
+    <div id="begin-discussion" class="hide">
+      All players now openly discuss yesterday's events and who might be the bug. Everybody should say their opinion. After the discussion, every player will vote on who they think the bug is. The person with the most votes will be fired.
+      <div id="time" class="hide">
+        <button id="discussion" type="button">Start Discussion</button>
+      </div>
     </div>
 
   </div>
 
 <!--Generic div created be JS -->
-  <div class="day" id="day-begin-roles">
+  <div class="day hide" id="day-begin-roles">
     <div class="day" id="day-voting">
-      <h4>The game master now asks each player in turn who he wants to vote for. Each player should explain their vote.</h4>
-
+      <h4>The voting will begin.</h4>
         <!-- **js appends img that are clickable with unique ids. add class to signify which person has been selected.** -->
-
-      <button type="button" name="playerObject.id-vote">Vote</button>
+      <button type="button" name="begin-vote" id="begin-vote">Continue</button>
     </div>
-<!-- SHOW DAY-VICTIM DIV -->
-<!-- CUSTOMIZE BUTTON TO TAKE US TO SECOND NIGHT ROUND -->
+
+    <div class="player-vote hide">
+      <h4>Vote for who you think corrupted the code.</h4>
+      <span class="img" id="day-player-img"></span>
+      <div class="candidates">
+      </div>
+
+    </div>
+
+    <div class="day hide" id="vote-result">
+
+      result divs are hidden in here
+      <div class="hide" id="vote-victim">
+        <span id="vote-victim-img"></span>
+        <h4>The office has voted, <span id="victim">NAME</span> was fired for buggy code. The remaining developers get back to work for the day</h4>
+        <h4>The former employee is not allowed to talk until the end of the game.</h4>
+        <button type="button" name="vote-victim-accept" id="vote-victim-accept">Done</button>
+      </div>
+
+      <div class="day hide" id='vote-draw'>
+        <h4>The office could not agree on who the bug was. No more developers will be fired today</h4>
+      </div>
+      <button type="button" name="day-end" id="day-end">Done</button>
+    </div>
+    <!-- SHOW DAY-VICTIM DIV -->
+    <!-- CUSTOMIZE BUTTON TO TAKE US TO SECOND NIGHT ROUND -->
   </div>
 
-  </body>
+  <div class="night hide" id="day-end-roles">
+    <h4>The work day has ended. Developers go home for the night.</h4>
+    <button type="button" name="begin-night" id="day-end-begin-night">Ready</button>
+  </div>
+</body>
 </html>
