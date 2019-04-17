@@ -1,8 +1,8 @@
 var newGame = new StartGame(4);
-var player1 = new Player("q")
-var player2 = new Player("w")
-var player3 = new Player("e")
-var player4 = new Player("r")
+// var player1 = new Player("q")
+// var player2 = new Player("w")
+// var player3 = new Player("e")
+// var player4 = new Player("r")
 
 
 function StartGame(numberOfPlayers) {
@@ -92,47 +92,49 @@ function voteCount(){
 
 //Countdown functions
 function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+  var timer = duration, minutes, seconds;
+  setInterval(function () {
+    minutes = parseInt(timer / 60, 10)
+    seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+    display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-            $('#day-intro').hide();
-            $('#day-begin-roles').show();
-        }
-    }, 1000);
+    if (--timer < 0) {
+      timer = duration;
+      $('#day-intro').hide();
+      $('#day-begin-roles').show();
+    }
+  }, 1000);
 }
 
 $(function(){
-  newGame.randomRoles(4);
+  // newGame.randomRoles(4);
   var location = 0
   var retrievedNewGame = localStorage.getItem('newGame');
   var newGame1 = JSON.parse(retrievedNewGame);
   var playerTurn = [1, 2, 3, 4];
   $('form').submit(function(e) {
-   e.preventDefault();
-   newGame.randomRoles(4);
-   for (let i = 1; i <= 4; i++) {
-     var name = $('input#name' + i).val();
-     var player = new Player(name);
-     player.addPlayer();
-   }
-   localStorage.setItem('newGame', JSON.stringify(newGame));
-   window.location.href = "../werewolf-clone/night.html"
+    e.preventDefault();
+    // debugger;
+    newGame.randomRoles(4);
+    for (let i = 1; i <= 4; i++) {
+      var name = $('input#name' + i).val();
+      console.log(name);
+      var player = new Player(name);
+      player.addPlayer();
+    }
+    localStorage.setItem('newGame', JSON.stringify(newGame));
+    window.location.href = "../werewolf-clone/night.html"
   });
 
 
   // $('.img').html('<img src="img/player' + i + '.png" alt="an avatar for player '+ i + '">')
 
   $('button.next-role').on('click',function(){
-    if(newGame1.players[location]) {
+    if(playerTurn[location]) {
       $('#night-intro').hide();
       $('.role').hide();
       $('button#continue-night').hide();
@@ -187,12 +189,31 @@ $(function(){
   $("#discussion").on("click", function() {
 
     var twoMinute = 1* 2,
-        display = document.querySelector('#time');
+    display = document.querySelector('#time');
     startTimer(twoMinute, display);
   })
 
-  // $('button#begin-vote').on('click', function() {
-  //   $('#day-player-img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
-  //   $('span.img').append('<p>' + newGame1.players[location].name + '</p>');
-  // })
+  $('button#begin-vote').on('click', function() {
+    $('#day-player-img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
+    //playerTurn link to status=employed array
+    for (let i = 1; i <= 4; i++) {
+      if (i !== playerTurn[location]) {
+        $('.candidates').append('<img src="img/player' + i + '.png" alt="an avatar for player' + i + '" class="img-sm" id="candidate' + i + '">');
+      }
+    }
+    $('img.img-sm').on('click', function() {
+      var candidate = $()
+    
+    });
+
+  })
+
+
+
+
+
+
+
+  // location++
+
 });
