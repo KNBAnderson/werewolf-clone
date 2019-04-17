@@ -6,7 +6,7 @@
   width: 250px;
 }
 
-.img-sm {
+.img-sm, .img-sm-bug {
   width: 125px;
 }
 
@@ -47,4 +47,8 @@ body {
 input {
   padding: 5px;
   margin: 5px;
+}
+
+h1 {
+  font-family: 'Megrim', cursive;
 }
