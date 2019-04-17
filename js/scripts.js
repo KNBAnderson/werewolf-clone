@@ -1,16 +1,10 @@
 var newGame = new StartGame(4);
-// var player1 = new Player("q")
-// var player2 = new Player("w")
-// var player3 = new Player("e")
-// var player4 = new Player("r")
-
-
 
 function StartGame(numberOfPlayers) {
   this.players = [],
   this.deadPlayers = [],
   this.roleIds = [],
-  this.voteCountRun = 0,
+  this.playerTurns = [],
   this.numberOfPlayers = numberOfPlayers
 }
 
@@ -35,6 +29,7 @@ function Player(name) {
 Player.prototype.addPlayer = function () {
   this.playerId += newGame.players.length;
   newGame.players.push(this);
+  newGame.playerTurns.push(this.playerId);
   this.assignRole();
 }
 
@@ -47,14 +42,6 @@ Player.prototype.assignRole = function() {
 }
 //Above starts game and assigns initial properties to players
 
-// newGame.randomRoles(4);
-// player1.addPlayer();
-// player2.addPlayer();
-// player3.addPlayer();
-// player4.addPlayer();
-
-
-
 //Function for the Bug to vote
 function bugPower(playerId){
   for (i = 0; i < newGame.players.length; i++){
@@ -63,6 +50,7 @@ function bugPower(playerId){
       var latestVictim = newGame.players.slice(i,i+1);
       newGame.deadPlayers.unshift(latestVictim);
       newGame.players.splice(i,1);
+      newGame.playerTurns.splice(i,1);
     }
   }
   //this may need a line to update game???
@@ -73,10 +61,6 @@ function voteCollect(playerId) {
     if (newGame.players[i].playerId === playerId){
       newGame.players[i].voteCount += 1;
     }
-  }
-  newGame.voteCountRun += 1;
-  if (newGame.players.length === newGame.voteCountRun) {
-    voteCount();
   }
 }
 
@@ -90,35 +74,43 @@ function voteCount(){
     var latestVictim = newGame.players.slice(0,1);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(0,1);
-    newGame.voteCountRun = 0;
+    newGame.playerTurns.splice(0,1);
+    resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
     newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
     var latestVictim = newGame.players.slice(1,2);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(1,1);
-    newGame.voteCountRun = 0;
+    newGame.playerTurns.splice(1,1);
+    resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
     newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
     var latestVictim = newGame.players.slice(2,3);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(2,1);
-    newGame.voteCountRun = 0;
+    newGame.playerTurns.splice(2,1);
+    resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
     newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
     var latestVictim = newGame.players.slice(3,4);
     newGame.deadPlayers.unshift(latestVictim);
     newGame.players.splice(3,1);
-    newGame.voteCountRun = 0;
+    newGame.playerTurns.splice(3,1);
+    resetVoteCount();
     return "#vote-victim";
   } else {
-    newGame.voteCountRun = 0;
+    resetVoteCount();
     return "#vote-draw";
   }
 }
-
+function resetVoteCount() {
+  for (var i = 0; i < newGame.players.length; i++){
+    newGame.players[i].voteCount = 0;
+  }
+}
 //Countdown functions
 function startTimer(duration, display) {
   var timer = duration, minutes, seconds;
@@ -246,7 +238,7 @@ $(function(){
       location = 0;
       $('.player-vote').hide();
       $('#vote-result').show();
-      // $(voteCount()).show();
+      $(voteCount()).show();
     }
   })
 
