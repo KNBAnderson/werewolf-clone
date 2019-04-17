@@ -113,24 +113,43 @@ function resetVoteCount() {
   }
 }
 //Countdown functions
-function startTimer(duration, display) {
-  var timer = duration, minutes, seconds;
-  setInterval(function () {
-    minutes = parseInt(timer / 60, 10)
-    seconds = parseInt(timer % 60, 10);
-
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    display.textContent = minutes + ":" + seconds;
-
-    if (--timer < 0) {
-      timer = duration;
+function startTimer(seconds) {
+  var counter = seconds;
+  var interval = setInterval(() => {
+    counter--
+    $("#discussion").hide();
+    $("#time").html(counter);
+    if (counter < 0) {
       $('#day-intro').hide();
-      $('#day-begin-roles').show();
-    }
-  }, 1000);
-}
+        $('#day-begin-roles').hide();
+        $('#day-begin-roles').show();
+        $('#day-voting').show();
+
+        clearInterval(interval);
+      };
+    }, 1000);
+  };
+  // var timer = duration, minutes, seconds;
+  // setInterval(function () {
+  //   minutes = parseInt(timer / 60, 10)
+  //   seconds = parseInt(timer % 60, 10);
+  //
+  //   minutes = minutes < 10 ? "0" + minutes : minutes;
+  //   seconds = seconds < 10 ? "0" + seconds : seconds;
+  //
+  //   display.textContent = minutes + ":" + seconds;
+  //
+  //   if (--timer < 0) {
+  //     timer = duration;
+  //     $('#day-intro').hide();
+  //     $('#day-begin-roles').hide();
+  //     $('#day-begin-roles').show();
+  //     $('#day-voting').show();
+  //
+  //   }
+  // }, 1000);
+
+
 
 $(function(){
   // newGame.randomRoles(4);
@@ -224,9 +243,11 @@ $(function(){
 
   $("#discussion").on("click", function() {
 
-    var twoMinute = 1 * 2,
+
+    var twoMinute = 120,
+
     display = document.querySelector('#time');
-    startTimer(twoMinute, display);
+    startTimer(twoMinute);
   })
 
   $('button#begin-vote').on('click', function votePopulate() {
