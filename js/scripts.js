@@ -66,6 +66,8 @@ function voteCollect(playerId) {
   }
 }
 
+
+//We could pop this function into the UI easily if it also returned a string of either '#vote-draw' or '#vote-victim'. Then we could just run the function, and whatever value it returned would be in $(returnedValue).show(); and the right div would show
 function voteCount(){
   if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
     newGame.players[0].playerStatus = !newGame.players[0].playerStatus;
@@ -178,11 +180,10 @@ $(function(){
     window.location.href = "../werewolf-clone/day.html"
   })
 
-  $('button#victim-accept').on('click', function() {
+  $('button#bug-victim-accept').on('click', function() {
     $('#begin-discussion').show();
     $('#time').show();
     $('#bug-victim').hide();
-    console.log('test');
   })
 
 
@@ -193,19 +194,42 @@ $(function(){
     startTimer(twoMinute, display);
   })
 
-  $('button#begin-vote').on('click', function() {
-    $('#day-player-img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
-    //playerTurn link to status=employed array
-    for (let i = 1; i <= 4; i++) {
-      if (i !== playerTurn[location]) {
-        $('.candidates').append('<img src="img/player' + i + '.png" alt="an avatar for player' + i + '" class="img-sm" id="candidate' + i + '">');
+  $('button#begin-vote').on('click', function votePopulate() {
+    $('#day-voting').hide();
+    if(playerTurn[location]) {
+      $('.player-vote').show();
+      $('#day-player-img').html('<img src="img/player' + playerTurn[location] + '.png" alt="an avatar for player" id="player-' + playerTurn[location] + '-img" class="player-img">');
+      //playerTurn link to status=employed array
+      for (let i = 1; i <= 4; i++) {
+        if (i !== playerTurn[location]) {
+          $('.candidates').append('<img src="img/player' + i + '.png" alt="an avatar for player' + i + '" class="img-sm" id="candidate' + i + '" value="' + i + '">');
+        }
       }
+      $('img.img-sm').on('click', function() {
+        var candidate = $(this).attr('value');
+//I need help getting this to work. I cant find if/where this is being updated. Minus 1 for 0 index ?
+        voteCollect(candidate-1);
+//^^^^
+        location++
+        $('#day-player-img, .candidates').html('');
+        votePopulate()
+      });
+    } else {
+      console.log('all votes done');
+      location = 0;
+      $('.player-vote').hide();
+      $('#vote-result').show();
+      // $(voteCount()).show();
     }
-    $('img.img-sm').on('click', function() {
-      var candidate = $()
-    
-    });
+  })
 
+  $('#day-end').on('click', function() {
+    $('#vote-result').hide();
+    $('#day-end-roles').show();
+  })
+
+  $('#day-end-begin-night').on('click', function() {
+    window.location.href = "../werewolf-clone/night.html"
   })
 
 
