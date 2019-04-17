@@ -14,13 +14,9 @@ i {
   font-size: 150px;
 }
 
-.day {
-  background-color: orange;
-}
-
-.night {
-  background-color: lightblue;
-}
+/* .day, .night, form {
+  background-color: rgba(255, 255, 255, 0.9);
+} */
 
 body {
   background-image: url('../img/day_sm.png');
@@ -28,4 +24,27 @@ body {
   background-position: left;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  padding: 20%;
+}
+
+* {
+  text-align: center;
+}
+
+.background-color {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 7%;
+  margin: auto;
+  max-width: 1260px;
+  height: 750px;
+}
+
+/* form {
+  max-width: 360px;
+  height: 500px;
+  margin: auto;
+} */
+input {
+  padding: 5px;
+  margin: 5px;
 }
