@@ -11,7 +11,6 @@
 </head>
 <body class="container">
   <header>
-    <!-- <h1>THE BUG IN THE CODE</h1> -->
     <img src="img/logo_sm.png" alt="logo" class="logo">
   </header>
   <div class="background-color">
@@ -21,7 +20,7 @@
       <input type="text" name="name2" placeholder="Player 2 name" id="name2">
       <input type="text" name="name3" placeholder="Player 3 name" id="name3">
       <input type="text" name="name4" placeholder="Player 4 name" id="name4"><br>
-      <button type="submit" name="names" id="start-game" class="btn btn-dark">START THE GAME</button>
+      <button type="submit" name="names" id="start-game" class="btn btn-dark">Start the Game</button>
     </form>
 
     <div class="night hide" id="night-intro">
@@ -32,22 +31,24 @@
     <div class="night" id="night-begin-roles">
       <div id="night-player-intros" class="hide">
         <span class="img" id="night-player-img"></span>
-        <p>Hand the device to this player. Click on the avatar above once you are ready.</p>
+        <h5>Hand the device to this player. Click on the avatar above once you are ready.</h5>
         <button type="button" name="continue" id="continue-night" class="hide continue-role btn btn-dark">Start Turn</button>
       </div>
 
       <div id="developer" class="hide role">
         <h3>//DEVELOPER//</h3>
         <img src="img/dev3.png" alt="dev" class="player-img">
-        <p>Developers sleep soundly</p>
+        <br><br>
+        <h5>Later, during the day you will discuss with your coworkers who the potential bug may be.</h5>
         <button type="button" name="continue" class="next-role btn btn-dark" id="developer-end-turn">Okay</button>
       </div>
 
       <div id="bug" class="hide role">
         <h3>//BUG//</h3>
         <img src="img/bug3.png" alt="bug" class="player-img">
-        <p>You are the bug.</p>
-        <p>Select a player's code to infect.</p>
+        <br>
+        <h5>You are the bug.</h5>
+        <h5>Select a player's code to infect.</h5>
         <div class="bug-candidates">
         </div>
         <button type="button" name="continue" class="next-role btn btn-dark hide" id="bug-end-turn">Infect Code</button>
@@ -68,7 +69,7 @@
       </div>
 
       <div id="begin-discussion" class="hide">
-        <p>All players now openly discuss yesterday's events and who might be the bug. Everybody should say their opinion. After the discussion, every player will vote on who they think the bug is. The person with the most votes will be fired.</p>
+        <h4>All players now openly discuss yesterday's events and who might be the bug. Everybody should say their opinion. After the discussion, every player will vote on who they think the bug is. The person with the most votes will be fired.</h4>
         <div id="time" class="hide">
           <button id="discussion" type="button" class="btn btn-dark">Start Discussion</button>
           <div id='timeClock'>
@@ -113,12 +114,12 @@
       <div  class="hide" id="bug-win">
         <img src="img/bug_win.png" alt="bug won" class="player-img-bug">
         <h4>The bugs have won!</h4>
-        <p>The company has gone backrupt; bad management may have been a factor.</p>
+        <h5>The company has gone backrupt; bad management may have been a factor.</h5>
       </div>
       <div class="hide" id="dev-win">
         <img src="img/dev_win.png" alt="bug won" class="player-img">
         <h4>Congratulations! You have voted out the bug!</h4>
-        <p>You probably should still try to find a different company to work for though. This place seems to have a high turnover rate...</p>
+        <h5>You should probably still try to find a different company to work for though. This place seems to have a high turnover rate...</h5>
       </div>
       <!-- js populates either "Bugs have corrupted all the code" or "Devs have found bug" -->
     </div>
