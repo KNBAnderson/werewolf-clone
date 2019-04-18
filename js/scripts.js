@@ -1,5 +1,6 @@
 var newGame = new StartGame(4);
 var voteVictim;
+var photoArray = []
 
 function StartGame(numberOfPlayers) {
   this.players = [],
@@ -40,13 +41,12 @@ StartGame.prototype.gameOver = function() {
   }
 }
 
-function Player(name, i) {
+function Player(name) {
   this.name = name,
   this.playerId = 0,
   this.roleId = "",
   this.voteCount = 0,
   this.playerStatus = true
-  // this.playerImage = "<img src='img/player" + i + ".png' alt='player image'>"
 }
 
 Player.prototype.addPlayer = function () {
@@ -54,6 +54,9 @@ Player.prototype.addPlayer = function () {
   newGame.players.push(this);
   newGame.playerTurns.push(this.playerId);
   this.assignRole();
+  this.playerImage = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='player-img'>";
+  this.playerImageSm = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='img-sm' value='" + this.playerId + "'>";
+  this.playerImageSmBug = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='img-sm-bug' value='" + this.playerId + "'>";
 }
 
 Player.prototype.assignRole = function() {
@@ -158,8 +161,13 @@ function resetVoteCount() {
 }
 
 function randomPhoto() {
-
+    for (var a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], i = a.length; i--; ) {
+        var random = a.splice(Math.floor(Math.random() * (i + 1)), 1);
+        photoArray.push(random);
+    }
+    console.log(photoArray);
 }
+randomPhoto();
 
 //Countdown functions
 function startTimer(seconds) {
@@ -205,7 +213,7 @@ $(function(){
       $('#night-intro').hide();
       $('.role').hide();
       $('button#continue-night').hide();
-      $('span.img').html('<img src="img/player' + newGame.playerTurns[location] + '.png" alt="an avatar for player" id="player-' + newGame.playerTurns[location] + '-img" class="player-img">');
+      $('span.img').html(newGame.players[newGame.playerTurns[location]].playerImage);
       $('span.img').append('<p class="name">' + newGame.players[newGame.playerTurns[location]].name + '</p>');
       $('#night-begin-roles #night-player-intros').show();
     }
@@ -228,10 +236,10 @@ $(function(){
       $('#developer').show();
       location++;
     } else if (newGame.players[newGame.playerTurns[location]].roleId === 'Bug') {
-      let tempArray = newGame.playerTurns
+      let tempArray = newGame.playerTurns;
       for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
         if (tempArray[i] !== newGame.playerTurns[location]) {
-          $('.bug-candidates').append('<div class="d-inline-block"><img src="img/player' + tempArray[i] + '.png" alt="an avatar for player' + tempArray[i] + '" class="img-sm-bug" id="bug-candidate' + tempArray[i] + '" value="' + tempArray[i] + '"><br><span class="name">' + newGame.players[tempArray[i]].name + '</span></div>');
+          $('.bug-candidates').append('<div class="d-inline-block">' + (newGame.players[tempArray[i]].playerImageSmBug) + '<br><span class="name">' + newGame.players[tempArray[i]].name + '</span></div>');
         }
       }
       $('img.img-sm-bug').on('click', function() {
@@ -254,7 +262,13 @@ $(function(){
   $('button#begin-day').on('click', function() {
     bugPower(candidate);
     $('#victim').text(newGame.players[candidate].name);
-    $('span#bug-victim-img').html('<img src="img/player' + candidate + '.png" alt="victim image" class="player-img" id="victim-img">');
+    $('span#bug-victim-img').html(newGame.players[candidate].playerImage);
+
+    // ('<img src="img/player' + candidate + '.png" alt="victim image" class="player-img" id="victim-img">');
+    //
+    // (newGame.players[newGame.playerTurns[candidate]].playerImage)
+
+
     $('#night-end-roles').hide();
     $('#day-intro').show();
     var twoMinute = 10;
@@ -284,15 +298,12 @@ $(function(){
     $('#day-voting').hide();
     if(newGame.playerTurns[location] || newGame.playerTurns[location] === 0) {
       $('.player-vote').show();
-
-
-
-      $('#day-player-img').html('<img src="img/player' + newGame.playerTurns[location] + '.png" alt="an avatar for player" id="player-' + newGame.playerTurns[location] + '-img" class="player-img">');
+      $('#day-player-img').html(newGame.players[newGame.playerTurns[location]].playerImage);
       $('#day-player-img').append('<p class="name">' + newGame.players[newGame.playerTurns[location]].name + '</p>');
       let tempArray = newGame.playerTurns;
       for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
         if (tempArray[i] !== newGame.playerTurns[location]) {
-          $('.candidates').append('<div class="d-inline-block"><img src="img/player' + tempArray[i] + '.png" alt="an avatar for player' + tempArray[i] + '" class="img-sm" id="candidate' + tempArray[i] + '" value="' + tempArray[i] + '"><br><span class="name">' + newGame.players[tempArray[i]].name + '</span></div>');
+          $('.candidates').append('<div class="d-inline-block">' + newGame.players[tempArray[i]].playerImageSm + '<br><span class="name">' + newGame.players[tempArray[i]].name + '</span></div>');
         }
       }
       $('img.img-sm').on('click', function() {
@@ -308,7 +319,7 @@ $(function(){
       if (voteVictim) {
         $(voteOutcome).show();
         $('#vote-victim-name').text(newGame.players[voteVictim].name);
-        $('span#vote-victim-img').html('<img src="img/player' + voteVictim + '.png" alt="victim image" class="player-img" id="victim-img">');
+        $('span#vote-victim-img').html((newGame.players[voteVictim].playerImage));
       } else {
         $(voteOutcome).show();
       }
