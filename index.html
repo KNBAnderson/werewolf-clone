@@ -11,7 +11,8 @@
 </head>
 <body class="container">
   <header>
-    <h1>Bug in the Code</h1>
+    <!-- <h1>THE BUG IN THE CODE</h1> -->
+    <img src="img/logo_sm.png" alt="logo" class="logo">
   </header>
   <div class="background-color">
 
@@ -20,53 +21,57 @@
       <input type="text" name="name2" placeholder="Player 2 name" id="name2">
       <input type="text" name="name3" placeholder="Player 3 name" id="name3">
       <input type="text" name="name4" placeholder="Player 4 name" id="name4"><br>
-      <button type="submit" name="names" id="start-game">Start the game</button>
+      <button type="submit" name="names" id="start-game" class="btn btn-dark">START THE GAME</button>
     </form>
 
     <div class="night hide" id="night-intro">
-      <h4>Night has come, all developers have left the office after a long day of coding. <span class="player-name">Player</span> receives the device, views their role, and gives the device to the next player once finished.</h4>
-      <button type="button" name="begin-night" id="begin-night" class="next-role">Begin</button>
+      <h4>Night has come, all developers have left the office after a long day of coding. <span class="player-name .alt-text">Player</span> receives the device, views their role, and gives the device to the next player once finished.</h4>
+      <button type="button" name="begin-night" id="begin-night" class="next-role btn btn-dark">Begin</button>
     </div>
 
     <div class="night" id="night-begin-roles">
       <div id="night-player-intros" class="hide">
         <span class="img" id="night-player-img"></span>
         <p>Hand the device to this player. Click on the avatar above once you are ready.</p>
-        <button type="button" name="continue" id="continue-night" class="hide continue-role">Start Turn</button>
+        <button type="button" name="continue" id="continue-night" class="hide continue-role btn btn-dark">Start Turn</button>
       </div>
 
       <div id="developer" class="hide role">
-        <i class="fas fa-laptop-code"></i>
+        <!-- <i class="fas fa-laptop-code"></i> -->
+        <h3>//DEVELOPER//</h3>
+        <img src="img/dev3.png" alt="dev" class="player-img">
         <p>Developers sleep soundly</p>
-        <button type="button" name="continue" class="next-role" id="developer-end-turn">Okay</button>
+        <button type="button" name="continue" class="next-role btn btn-dark" id="developer-end-turn">Okay</button>
       </div>
 
       <div id="bug" class="hide role">
-        <i class="fas fa-bug"></i>
+        <!-- <i class="fas fa-bug"></i> -->
+        <h3>//BUG//</h3>
+        <img src="img/bug3.png" alt="bug" class="player-img">
         <p>Select a player's code to infect.</p>
         <div class="bug-candidates">
         </div>
-        <button type="button" name="continue" class="next-role" id="bug-end-turn">Infect Code</button>
+        <button type="button" name="continue" class="next-role btn btn-dark" id="bug-end-turn">Infect Code</button>
       </div>
 
       <div class="day hide" id="night-end-roles">
         <h4>Morning has come, the office awakes. Hand the device to the game master.</h4>
-        <button type="button" name="begin-day" id="begin-day">Ready</button>
+        <button type="button" name="begin-day" id="begin-day" class="btn btn-dark">Ready</button>
       </div>
     </div>
 
     <div class="day hide" id="day-intro">
       <div id="bug-victim">
         <span id="bug-victim-img"></span>
-        <h4><span id="victim">NAME</span> was fired for buggy code.</h4>
+        <h4><span id="victim" class="alt-text">NAME</span> was fired for buggy code.</h4>
         <h4>The former employee is not allowed to talk until the end of the game.</h4>
-        <button type="button" name="bug-victim-accept" id="bug-victim-accept">Done</button>
+        <button type="button" name="bug-victim-accept" id="bug-victim-accept" class="btn btn-dark">Done</button>
       </div>
 
       <div id="begin-discussion" class="hide">
         <p>All players now openly discuss yesterday's events and who might be the bug. Everybody should say their opinion. After the discussion, every player will vote on who they think the bug is. The person with the most votes will be fired.</p>
         <div id="time" class="hide">
-          <button id="discussion" type="button">Start Discussion</button>
+          <button id="discussion" type="button" class="btn btn-dark">Start Discussion</button>
         </div>
       </div>
     </div>
@@ -74,7 +79,7 @@
     <div class="day hide" id="day-begin-roles">
       <div class="day" id="day-voting">
         <h4>The voting will begin.</h4>
-        <button type="button" name="begin-vote" id="begin-vote">Continue</button>
+        <button type="button" name="begin-vote" id="begin-vote"  class="btn btn-dark">Continue</button>
       </div>
 
       <div class="player-vote hide">
@@ -96,12 +101,12 @@
       <div class="day hide" id='vote-draw'>
         <h4>The office could not agree on who the bug was. No more developers will be fired today</h4>
       </div>
-      <button type="button" name="day-end" id="day-end">Done</button>
+      <button type="button" name="day-end" id="day-end"  class="btn btn-dark">Done</button>
     </div>
 
     <div class="night hide" id="day-end-roles">
       <h4>The work day has ended. Developers go home for the night.</h4>
-      <button type="button" name="begin-night" id="day-end-begin-night">Ready</button>
+      <button type="button" name="begin-night" id="day-end-begin-night"  class="btn btn-dark">Ready</button>
     </div>
 
     <div class="night hide" id="end-game">
