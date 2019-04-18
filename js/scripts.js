@@ -263,6 +263,8 @@ $(function(){
     bugPower(candidate);
     $('#victim').text(newGame.players[candidate].name);
     $('span#bug-victim-img').html(newGame.players[candidate].playerImage);
+    $('#bug-victim').show();
+    $('#begin-discussion, #end-game').hide();
 
     // ('<img src="img/player' + candidate + '.png" alt="victim image" class="player-img" id="victim-img">');
     //
@@ -277,6 +279,7 @@ $(function(){
   })
 
   $('button#bug-victim-accept').on('click', function() {
+    $('#bug-vicitm').hide();
     if(!newGame.gameOver()[0]) {
       $('#begin-discussion').show();
       $('#time').show();
