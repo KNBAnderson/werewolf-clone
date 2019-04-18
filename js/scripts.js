@@ -55,8 +55,8 @@ Player.prototype.addPlayer = function () {
   newGame.playerTurns.push(this.playerId);
   this.assignRole();
   this.playerImage = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='player-img'>";
-  this.playerImageSm = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='img-sm'>";
-  this.playerImageSmBug = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='img-sm-bug'>";
+  this.playerImageSm = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='img-sm' value='" + this.playerId + "'>";
+  this.playerImageSmBug = "<img src='img/player" + photoArray[this.playerId] + ".png' alt='player image' class='img-sm-bug' value='" + this.playerId + "'>";
 }
 
 Player.prototype.assignRole = function() {
@@ -220,7 +220,7 @@ $(function(){
       $('#developer').show();
       location++;
     } else if (newGame.players[newGame.playerTurns[location]].roleId === 'Bug') {
-      let tempArray = newGame.playerTurns
+      let tempArray = newGame.playerTurns;
       for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
         if (tempArray[i] !== newGame.playerTurns[location]) {
           $('.bug-candidates').append('<div class="d-inline-block">' + (newGame.players[tempArray[i]].playerImageSmBug) + '<br><span class="name">' + newGame.players[tempArray[i]].name + '</span></div>');
