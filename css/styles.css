@@ -6,6 +6,10 @@
   width: 250px;
 }
 
+.player-img-bug {
+  width: 350px;
+}
+
 .img-sm, .img-sm-bug {
   width: 125px;
 }
@@ -13,7 +17,9 @@
 i {
   font-size: 120px;
 }
-
+button#discussion{
+  margin: auto;
+}
 /* .day, .night, form {
   background-color: rgba(255, 255, 255, 0.9);
 } */
