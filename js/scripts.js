@@ -132,6 +132,7 @@ function voteCount(){
     return "#vote-draw";
   }
 }
+
 function resetVoteCount() {
   for (var i = 0; i < newGame.players.length; i++){
     newGame.players[i].voteCount = 0;
@@ -166,6 +167,7 @@ $(function(){
       var player = new Player(name);
       player.addPlayer();
     }
+    $('body').addClass('nightime')
     $('form').hide();
     $('#night-intro').show();
   });
@@ -182,6 +184,8 @@ $(function(){
     }
     else {
       location = 0;
+      $('body').removeClass('nightime');
+      $('body').addClass('daytime');
       $('#night-end-roles').show();
       $('.role').hide();
     }
@@ -276,7 +280,7 @@ $(function(){
   })
 
   $('#day-end').on('click', function() {
-    newGame.gameOver();
+    $('body').addClass('nightime');
     $('#vote-result').hide();
     $('#day-end-roles').show();
   })
