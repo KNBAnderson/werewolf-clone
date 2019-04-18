@@ -220,6 +220,7 @@ $(function(){
       }
       $('img.img-sm-bug').on('click', function() {
         candidate = parseInt($(this).attr('value'));
+        $('#bug-end-turn').show();
         $('.bug-candidates').hide();
 
       });
@@ -230,6 +231,7 @@ $(function(){
   })
 
   $('#bug-end-turn').on('click', function() {
+    $('#bug-end-turn').hide();
     $('.bug-candidates').html("").show();
   })
 
@@ -244,10 +246,14 @@ $(function(){
   })
 
   $('button#bug-victim-accept').on('click', function() {
-    $('#begin-discussion').show();
-    $('#time').show();
-    $('#bug-victim').hide();
-    // startTimer(twoMinute);
+    if(!newGame.gameOver()[0]) {
+      $('#begin-discussion').show();
+      $('#time').show();
+      $('#bug-victim').hide();
+    } else if (newGame.gameOver()[0]) {
+      $('#vote-result').hide();
+      $('#end-game, ' + newGame.gameOver()[1]).show();
+    }
   })
 
   $("#discussion").on("click", function() {
