@@ -1,4 +1,4 @@
-var newGame = new StartGame(4);
+var newGame = new StartGame(5);
 
 function StartGame(numberOfPlayers) {
   this.players = [],
@@ -87,47 +87,52 @@ function voteCollect(playerId) {
 
 
 function voteCount(){
-  if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
+  if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount && newGame.players[0].voteCount > newGame.players[4].voteCount) {
     newGame.players[0].playerStatus = !newGame.players[0].playerStatus;
     for (var j = 0; j < newGame.playerTurns.length; j++){
       if (newGame.playerTurns[j] === 0){
         newGame.playerTurns.splice(j,1);
       }
     }
-    // newGame.playerTurns.splice(0,1);
     resetVoteCount();
     return "#vote-victim";
-  } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
+  } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount && newGame.players[1].voteCount > newGame.players[4].voteCount) {
     newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
     for (var j = 0; j < newGame.playerTurns.length; j++){
       if (newGame.playerTurns[j] === 1){
         newGame.playerTurns.splice(j,1);
       }
     }
-    // newGame.playerTurns.splice(1,1);
     resetVoteCount();
     return "#vote-victim";
-  } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
+  } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount && newGame.players[2].voteCount > newGame.players[4].voteCount) {
     newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
     for (var j = 0; j < newGame.playerTurns.length; j++){
       if (newGame.playerTurns[j] === 2){
         newGame.playerTurns.splice(j,1);
       }
     }
-    // newGame.playerTurns.splice(2,1);
     resetVoteCount();
     return "#vote-victim";
-  } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
+  } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount && newGame.players[3].voteCount > newGame.players[4].voteCount) {
     newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
     for (var j = 0; j < newGame.playerTurns.length; j++){
       if (newGame.playerTurns[j] === 3){
         newGame.playerTurns.splice(j,1);
       }
     }
-    // newGame.playerTurns.splice(3,1);
     resetVoteCount();
     return "#vote-victim";
-  } else {
+  } else if (newGame.players[4].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount && newGame.players[4].voteCount > newGame.players[1].voteCount) {
+    newGame.players[4].playerStatus = !newGame.players[4].playerStatus;
+    for (var j = 0; j < newGame.playerTurns.length; j++){
+      if (newGame.playerTurns[j] === 4){
+        newGame.playerTurns.splice(j,1);
+      }
+    }
+    resetVoteCount();
+    return "#vote-victim";
+  }   else {
     resetVoteCount();
     return "#vote-draw";
   }
@@ -161,8 +166,8 @@ $(function(){
   var location = 0;
   $('form').submit(function(e) {
     e.preventDefault();
-    newGame.randomRoles(4);
-    for (let i = 1; i <= 4; i++) {
+    newGame.randomRoles(5);
+    for (let i = 1; i <= 5; i++) {
       var name = $('input#name' + i).val();
       var player = new Player(name);
       player.addPlayer();
