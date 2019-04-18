@@ -65,8 +65,7 @@ Player.prototype.assignRole = function() {
 function bugPower(playerId){
   for (let i = 0; i < newGame.players.length; i++){
     if (newGame.players[i].playerId === playerId){
-      newGame.players[i].playerStatus = !newGame.players[i].playerStatus;
-      var latestVictim = newGame.players.slice(i,i+1);
+      newGame.players[i].playerStatus = false;
       newGame.playerTurns.splice(i,1);
     }
   }
@@ -153,7 +152,7 @@ $(function(){
       $('.role').hide();
       $('button#continue-night').hide();
       $('span.img').html('<img src="img/player' + newGame.playerTurns[location] + '.png" alt="an avatar for player" id="player-' + newGame.playerTurns[location] + '-img" class="player-img">');
-      $('span.img').append('<p>' + newGame.players[location].name + '</p>');
+      $('span.img').append('<p>' + newGame.players[newGame.playerTurns[location]].name + '</p>');
       $('#night-begin-roles #night-player-intros').show();
     }
     else {
@@ -168,15 +167,16 @@ $(function(){
   });
 
   $('button.continue-role').on('click', function() {
-    if (newGame.players[location].roleId === 'Dev') {
+    if (newGame.players[newGame.playerTurns[location]].roleId === 'Dev') {
       $('#night-player-intros').hide();
       $('#developer').show();
       location++;
-    } else if (newGame.players[location].roleId === 'Bug') {
+    } else if (newGame.players[newGame.playerTurns[location]].roleId === 'Bug') {
       let tempArray = newGame.playerTurns
       for (let i = 0; i <= newGame.playerTurns.length - 1; i++) {
         if (tempArray[i] !== newGame.playerTurns[location]) {
-          $('.bug-candidates').append('<div class="d-inline-block"><img src="img/player' + newGame.playerTurns[i] + '.png" alt="an avatar for player' + newGame.playerTurns[i] + '" class="img-sm-bug" id="bug-candidate' + newGame.playerTurns[i] + '" value="' + newGame.playerTurns[i] + '"><br><span>' + newGame.players[i].name + '</span></div>');
+          $('.bug-candidates').append('<div class="d-inline-block"><img src="img/player' + tempArray[i] + '.png" alt="an avatar for player' + tempArray[i] + '" class="img-sm-bug" id="bug-candidate' + tempArray[i] + '" value="' + tempArray[i] + '"><br><span>' + newGame.players[i].name + '</span></div>');
+          console.log(newGame.players[i].name);
         }
       }
       $('img.img-sm-bug').on('click', function() {
@@ -199,6 +199,9 @@ $(function(){
     // $('span.night-victim-img').append('<img src=' + (WHATEVER[1] + 1) + 'alt="victim image" id="victim-img">');
     $('#night-end-roles').hide();
     $('#day-intro').show();
+    var twoMinute = 4;
+    display = document.querySelector('#time');
+    startTimer(twoMinute);
   })
 
   $('button#bug-victim-accept').on('click', function() {
@@ -208,7 +211,7 @@ $(function(){
   })
 
   $("#discussion").on("click", function() {
-    var twoMinute = 2,
+    var twoMinute = 4;
     display = document.querySelector('#time');
     startTimer(twoMinute);
   })
