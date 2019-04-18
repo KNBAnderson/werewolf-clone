@@ -74,3 +74,6 @@ h1, h3, {
   font-weight: bold;
 
 }
+#discussion {
+  display: block;
+}
