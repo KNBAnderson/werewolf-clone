@@ -4,6 +4,7 @@
 
 ## Description
 
+https://knbanderson.github.io/werewolf-clone/
 _A game played through the webpage, in which players are randomly assigned good or bad roles, and work together to determine who the evil players are._
 
 | Behavior | Input | Output |

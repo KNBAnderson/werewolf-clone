@@ -76,10 +76,12 @@ h1, h3, {
   margin-top: 5%;
 }
 
-.name, #victim {
+.name, #victim, #victim-bug-vote {
   font-weight: bold;
-  font-size: 200%;
+}
 
+.name {
+  font-size: 200%;
 }
 #discussion {
   display: block;
