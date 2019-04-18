@@ -66,7 +66,12 @@ function bugPower(playerId){
   for (let i = 0; i < newGame.players.length; i++){
     if (newGame.players[i].playerId === playerId){
       newGame.players[i].playerStatus = false;
-      newGame.playerTurns.splice(i,1);
+      for (var j = 0; j < newGame.playerTurns.length; j++){
+        if (newGame.playerTurns[j] === playerId){
+          newGame.playerTurns.splice(j,1);
+
+        }
+      }
     }
   }
 }
@@ -84,22 +89,42 @@ function voteCollect(playerId) {
 function voteCount(){
   if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
     newGame.players[0].playerStatus = !newGame.players[0].playerStatus;
-    newGame.playerTurns.splice(0,1);
+    for (var j = 0; j < newGame.playerTurns.length; j++){
+      if (newGame.playerTurns[j] === 0){
+        newGame.playerTurns.splice(j,1);
+      }
+    }
+    // newGame.playerTurns.splice(0,1);
     resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[1].voteCount > newGame.players[0].voteCount && newGame.players[1].voteCount > newGame.players[2].voteCount && newGame.players[1].voteCount > newGame.players[3].voteCount) {
     newGame.players[1].playerStatus = !newGame.players[1].playerStatus;
-    newGame.playerTurns.splice(1,1);
+    for (var j = 0; j < newGame.playerTurns.length; j++){
+      if (newGame.playerTurns[j] === 1){
+        newGame.playerTurns.splice(j,1);
+      }
+    }
+    // newGame.playerTurns.splice(1,1);
     resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[2].voteCount > newGame.players[0].voteCount && newGame.players[2].voteCount > newGame.players[1].voteCount && newGame.players[2].voteCount > newGame.players[3].voteCount) {
     newGame.players[2].playerStatus = !newGame.players[2].playerStatus;
-    newGame.playerTurns.splice(2,1);
+    for (var j = 0; j < newGame.playerTurns.length; j++){
+      if (newGame.playerTurns[j] === 2){
+        newGame.playerTurns.splice(j,1);
+      }
+    }
+    // newGame.playerTurns.splice(2,1);
     resetVoteCount();
     return "#vote-victim";
   } else if (newGame.players[3].voteCount > newGame.players[0].voteCount && newGame.players[3].voteCount > newGame.players[2].voteCount && newGame.players[3].voteCount > newGame.players[1].voteCount) {
     newGame.players[3].playerStatus = !newGame.players[3].playerStatus;
-    newGame.playerTurns.splice(3,1);
+    for (var j = 0; j < newGame.playerTurns.length; j++){
+      if (newGame.playerTurns[j] === 3){
+        newGame.playerTurns.splice(j,1);
+      }
+    }
+    // newGame.playerTurns.splice(3,1);
     resetVoteCount();
     return "#vote-victim";
   } else {
