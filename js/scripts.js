@@ -89,6 +89,20 @@ function voteCollect(playerId) {
   }
 }
 
+// function maxVote() {
+//   var highVote = newGame.players.reduce(function(previous, current) {
+//     return (previous.voteCount > current.voteCount) ? previous : current;
+//   })
+//   for (var i = 0; i < newGame.playerTurns.length; i++){
+//     if (newGame.playerTurns[i] === highVote.playerId){
+//       newGame.playerTurns.splice(i, 1);
+//       resetVoteCount();
+//     }else if (THERE IS A TIE) {
+//
+//     }
+//   }
+// }
+
 
 function voteCount(){
   if (newGame.players[0].voteCount > newGame.players[1].voteCount && newGame.players[0].voteCount > newGame.players[2].voteCount && newGame.players[0].voteCount > newGame.players[3].voteCount) {
@@ -153,14 +167,16 @@ function startTimer(seconds) {
   var interval = setInterval(() => {
     counter--
     $("#discussion").hide();
-    $("#time").html(counter);
-    if (counter < 0) {
-      $('#day-intro').hide();
-        $('#day-begin-roles').hide();
-        $('#day-begin-roles').show();
-        $('#day-voting').show();
+    $("#timeClock").html(counter);
 
-        clearInterval(interval);
+    if (counter <= 0) {
+      $('#day-intro').hide();
+      $('#day-begin-roles').hide();
+      $('#day-begin-roles').show();
+      $('#day-voting').show();
+      $("#discussion").show();
+      $("#timeClock").hide();
+      clearInterval(interval);
       };
     }, 1000);
   };
@@ -169,7 +185,7 @@ $(function(){
   var candidate;
   var voteClick;
   var location = 0;
-  var twoMinute = 4;
+  var twoMinute = 10;
   $('form').submit(function(e) {
     e.preventDefault();
     newGame.randomRoles(4);
@@ -239,7 +255,8 @@ $(function(){
     $('span#bug-victim-img').html('<img src="img/player' + candidate + '.png" alt="victim image" class="player-img" id="victim-img">');
     $('#night-end-roles').hide();
     $('#day-intro').show();
-    // var twoMinute = 4;
+    var twoMinute = 10;
+    // startTimer(twoMinute);
     // display = document.querySelector('#time');
   })
 
@@ -251,8 +268,9 @@ $(function(){
   })
 
   $("#discussion").on("click", function() {
-    // twoMinute = 4;
-    display = document.querySelector('#time');
+    twoMinute = 10;
+    $("#timeClock").show();
+    display = document.querySelector('#timeClock');
     startTimer(twoMinute);
   })
 
