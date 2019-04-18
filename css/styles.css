@@ -11,7 +11,7 @@
 }
 
 i {
-  font-size: 150px;
+  font-size: 120px;
 }
 
 /* .day, .night, form {
@@ -24,7 +24,7 @@ body {
   background-position: left;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  padding: 20%;
+  padding-top:  8vh;
 }
 
 * {
@@ -35,8 +35,8 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 7%;
   margin: auto;
-  max-width: 1260px;
-  height: 750px;
+  max-width: 500px;
+  height: 500px;
 }
 
 /* form {
@@ -51,4 +51,8 @@ input {
 
 h1 {
   font-family: 'Megrim', cursive;
+}
+
+.name, #victim {
+  font-weight: bold;
 }

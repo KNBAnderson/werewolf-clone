@@ -43,10 +43,10 @@
 
       <div id="bug" class="hide role">
         <i class="fas fa-bug"></i>
-        <p>Select a player's code to infect.</p>
+        <p>You are the bug. Select a player's code to corrupt.</p>
         <div class="bug-candidates">
         </div>
-        <button type="button" name="continue" class="next-role" id="bug-end-turn">Infect Code</button>
+        <button type="button" name="continue" class="next-role" id="bug-end-turn">Corrupt Code</button>
       </div>
 
       <div class="day hide" id="night-end-roles">
@@ -86,10 +86,9 @@
     </div>
 
     <div class="day hide" id="vote-result">
-      result divs are hidden in here
       <div class="hide" id="vote-victim">
         <span id="vote-victim-img"></span>
-        <h4>The office has voted, <span id="victim">NAME</span> was fired for buggy code. The remaining developers get back to work for the day</h4>
+        <h4>The office has voted, <span id="vote-victim-name">NAME</span> was fired for buggy code. The remaining developers get back to work for the day</h4>
         <h4>The former employee is not allowed to talk until the end of the game.</h4>
       </div>
 
@@ -105,7 +104,14 @@
     </div>
 
     <div class="night hide" id="end-game">
-      end game stuff here
+      <div  class="hide" id="bug-win">
+        <h4>The bugs have won!</h4>
+        <p>The company has gone backrupt; bad management may have been a factor.</p>
+      </div>
+      <div class="hide" id="dev-win">
+        <h4>Congratulations! You have voted out the bug!</h4>
+        <p>You probably should still try to find a different company to work for though. This place seems to have a high turnover rate...</p>
+      </div>
       <!-- js populates either "Bugs have corrupted all the code" or "Devs have found bug" -->
     </div>
   </div>
